@@ -32,24 +32,22 @@
   </div>
 </template>
 
-
 <script>
 export default {
-    data() {
-      return {
-        activeIndex: '1',
-        activeIndex2: '1'
-      };
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-        if(key==1){this.$router.push('/Home')};
-        if(key==2){this.$router.push('/Home/trackparcel')};
-        if(key==3){this.$router.push('/Home/sendparcel')};       
-      }
+  data: function () {
+    return {
+      activeIndex: '1',
+      activeIndex2: '1'
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      if (key === 1) { this.$router.push('/Home') };
+      if (key === 2) { this.$router.push('/Home/trackparcel') };
+      if (key === 3) { this.$router.push('/Home/sendparcel') };
     }
   }
+}
 </script>
 
 <style scoped>

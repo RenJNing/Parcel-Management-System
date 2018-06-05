@@ -1,8 +1,8 @@
 <template>
   <div class="login">
-    <div class="background-div">  
-				<img :src="location" width='100%' height='100%'>
-		</div>
+    <div class="background-div">
+      <img :src="location" width='100%' height='100%'>
+    </div>
     <div class='top'>
       <h1>{{ title }}</h1>
       <el-tabs v-model="activePane">
@@ -35,110 +35,106 @@
           </el-form>
         </el-tab-pane>
       </el-tabs>
-      
     </div>
   </div>
 </template>
 
 <script>
-import BGimg from '../assets/background.jpg';
+import BGimg from '../assets/background.jpg'
 export default {
   data () {
-    var validatePass = (rule, value, callback) => {            
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.RegisterForm.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.RegisterForm.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       title: '快递管理系统',
-      location:BGimg,
-      activePane:'login',
-      LoginForm:{
-        email:'',
-        password:''
+      location: BGimg,
+      activePane: 'login',
+      LoginForm: {
+        email: '',
+        password: ''
       },
-      RegisterForm:{
-        email:'',
-        nickname:'',
-        password:'',
-        confirm:''
+      RegisterForm: {
+        email: '',
+        nickname: '',
+        password: '',
+        confirm: ''
       },
-      loginrules:{
-        email:[
-          {required:true, message:'请输入账号！',trigger:'blur'}
+      loginrules: {
+        email: [
+          {required: true, message: '请输入账号！', trigger: 'blur'}
         ],
-        password:[
-          {required:true, message:"请输入密码！",trigger:'blur'}
+        password: [
+          {required: true, message: '请输入密码！', trigger: 'blur'}
         ]
       },
-      registerrules:{
-        email:[
-          {required:true, message:'请输入邮箱！',trigger:'blur'},
-          { type: "email", message: '请输入正确的Email格式', trigger: 'blur' }
+      registerrules: {
+        email: [
+          {required: true, message: '请输入邮箱！', trigger: 'blur'},
+          { type: 'email', message: '请输入正确的Email格式', trigger: 'blur' }
         ],
-        nickname:[
+        nickname: [
           { required: true, message: '请输入昵称', trigger: 'blur' },
           { pattern: /^([\u4e00-\u9fa5]|[a-zA-Z0-9])([\u4e00-\u9fa5]|[_|a-zA-Z0-9])+$/, message: '昵称仅可由中文、数字和字母组成' }
         ],
-        password:[
-          {required:true, message:"请输入密码！",trigger:'blur'},
+        password: [
+          {required: true, message: '请输入密码！', trigger: 'blur'},
           { min: 6, max: 16, message: '长度在6-16位之间', trigger: 'blur' },
           { pattern: /^[a-zA-Z0-9]+$/, message: '密码仅可由数字与字母组成' }
         ],
-        confirm:[
-          {validator: validatePass, trigger: 'blur' }
+        confirm: [
+          { validator: validatePass, trigger: 'blur' }
         ]
       }
     }
   },
-  methods:{
-    login(formName){
-      this.$refs[formName].validate((validate)=>{
-        if(validate){
-          this.$axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-          this.$axios.post('/user/login',{
-              email:this.LoginForm.email,
-              password:this.LoginForm.password
+  methods: {
+    login (formName) {
+      this.$refs[formName].validate((validate) => {
+        if (validate) {
+          this.$axios.post('user/login', {
+            email: this.LoginForm.email,
+            password: this.LoginForm.password
           })
-          .then(function(response){
-            if(response.data.code===200){
-              localStorage.setItem();
-              this.$router.push({ path: '/Home' });
-            }
-          })
-          .catch(function(error){
-            console.log(error);
-          });
-        }
-        else{
-          alert('请输入邮箱和密码');
-          return false;
+            .then(function (response) {
+              if (response.data.code === 200) {
+                localStorage.setItem()
+                this.$router.push({ path: '/Home' })
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+        } else {
+          alert('请输入邮箱和密码')
+          return false
         }
       }
-      );
+      )
     },
-    register(formName){
-      this.$refs[formName].validate((validate)=>{
-        if(validate){
-          this.$axios.post('/user/register',{
-            email:this.RegisterForm.email,
-            nickname:this.RegisterForm.nickname,
-            password:this.RegisterForm.password
+    register (formName) {
+      this.$refs[formName].validate((validate) => {
+        if (validate) {
+          this.$axios.post('user/register', {
+            email: this.RegisterForm.email,
+            nickname: this.RegisterForm.nickname,
+            password: this.RegisterForm.password
           })
-          .then((response)=>{
-            console.log(response.data);
-          })
-          .catch((error)=>{
-            console.log(error);
-          })
-        }
-        else{
-          alert('注册失败');
-          return false;
+            .then((response) => {
+              console.log(response.data)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        } else {
+          alert('注册失败')
+          return false
         }
       })
     }
@@ -168,6 +164,6 @@ export default {
   padding:0 65px;
 }
 .top .el-tabs__item {
-	padding:0 100px;
+  padding:0 100px;
 }
 </style>
