@@ -15,11 +15,11 @@
                 </el-submenu>
             </el-menu>
             <div class='user_info'>
-                <el-dropdown>
+                <el-dropdown @command="handleCommand">
                     <span class="el-dropdown-link">账户</span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>修改密码</el-dropdown-item>
-                        <el-dropdown-item>注销</el-dropdown-item>
+                        <el-dropdown-item command="a">修改密码</el-dropdown-item>
+                        <el-dropdown-item command="b">注销</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -36,15 +36,18 @@
 export default {
   data: function () {
     return {
-      activeIndex: '1',
-      activeIndex2: '1'
+      activeIndex: '1'
     }
   },
   methods: {
     handleSelect (key, keyPath) {
-      if (key === 1) { this.$router.push('/Home') };
-      if (key === 2) { this.$router.push('/Home/trackparcel') };
-      if (key === 3) { this.$router.push('/Home/sendparcel') };
+      if (key === '1') { this.$router.push('/Home') };
+      if (key === '2') { this.$router.push('/Home/trackparcel') };
+      if (key === '3') { this.$router.push('/Home/sendparcel') };
+    },
+    handleCommand(command) {
+      if (command === 'a') { this.$router.push('/Home/modifypassword') }
+      // if (command === 'b') { this.$router.push('/Home/trackparcel') };
     }
   }
 }

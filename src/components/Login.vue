@@ -41,6 +41,7 @@
 
 <script>
 import BGimg from '../assets/background.jpg'
+import { Message } from 'element-ui'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
@@ -95,7 +96,29 @@ export default {
     }
   },
   methods: {
-    login (formName) {
+    codeParsing (code) {
+      var msg = (Message) => {
+        Message({
+          message: Message,
+          type: 'error',
+          center: true
+        })
+      }
+      switch (code) {
+        case -1:
+          msg('系统错误', '未知错误，请上报管理员')
+          break
+        case 444:
+          msg('邮箱已占用，请更改邮箱')
+          break
+        case 445:
+          msg('昵称已占用，请更改昵称')
+          break
+        default:
+          break
+      }
+    },
+    login: function (formName) {
       this.$refs[formName].validate((validate) => {
         if (validate) {
           this.$axios.post('user/login', {
@@ -104,21 +127,34 @@ export default {
           })
             .then(function (response) {
               if (response.data.code === 200) {
-                localStorage.setItem()
-                this.$router.push({ path: '/Home' })
+                localStorage.setItem('ms_email', response.data.email)
+                localStorage.setItem('ms_nickname', response.data.nickname)
+                this.$router.push({path: '/Home'})
+              } else {
+                self.codeParsing(response.data.code)
               }
             })
             .catch(function (error) {
               console.log(error)
+              Message({
+                message: '请检查网络并重试',
+                type: 'error',
+                center: true
+              })
             })
         } else {
-          alert('请输入邮箱和密码')
+          Message({
+            message: '格式错误，请检查输入',
+            type: 'error',
+            center: true
+          })
           return false
         }
       }
       )
     },
     register (formName) {
+      const self = this
       this.$refs[formName].validate((validate) => {
         if (validate) {
           this.$axios.post('user/register', {
@@ -127,13 +163,34 @@ export default {
             password: this.RegisterForm.password
           })
             .then((response) => {
-              console.log(response.data)
+              if (response.data.code === 200) {
+                console.log(response.data)
+                Message({
+                  message: '注册成功',
+                  type: 'success',
+                  center: true
+                })
+                self.activePane = 'login'
+              } else {
+                self.codeParsing(response.data.code)
+                self.LoginForm.email = this.RegisterForm.email
+                self.LoginForm.password = this.RegisterForm.password
+              }
             })
             .catch((error) => {
               console.log(error)
+              Message({
+                message: '请检查网络并重试',
+                type: 'error',
+                center: true
+              })
             })
         } else {
-          alert('注册失败')
+          Message({
+            message: '格式错误，请检查输入',
+            type: 'error',
+            center: true
+          })
           return false
         }
       })

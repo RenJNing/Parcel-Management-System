@@ -7,14 +7,14 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import '../node_modules/element-ui/lib/theme-chalk/index.css'
 
-Vue.config.productionTip = false;
-Vue.prototype.$axios=axios;
+Vue.config.productionTip = false
+Vue.prototype.$axios = axios
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 /* eslint-disable no-new */
 new Vue({
   router,
   // components: { App },
   // template: '<App/>'
-  render:h => h(App)
-}).$mount('#app');
+  render: h => h(App)
+}).$mount('#app')
