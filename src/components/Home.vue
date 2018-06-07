@@ -10,8 +10,8 @@
                 <el-menu-item index="4">快递签收</el-menu-item>
                 <el-submenu index="5">
                     <template slot="title">论坛</template>
-                    <el-menu-item index="1">进入论坛</el-menu-item>
-                    <el-menu-item index="2">新建帖子</el-menu-item>
+                    <el-menu-item index="5-1">进入论坛</el-menu-item>
+                    <el-menu-item index="5-2">新建帖子</el-menu-item>
                 </el-submenu>
             </el-menu>
             <div class='user_info'>
@@ -44,6 +44,7 @@ export default {
       if (key === '1') { this.$router.push('/Home') };
       if (key === '2') { this.$router.push('/Home/trackparcel') };
       if (key === '3') { this.$router.push('/Home/sendparcel') };
+      if (key === '5-1') { this.$router.push('/Home/community') };
     },
     handleCommand(command) {
       if (command === 'a') { this.$router.push('/Home/modifypassword') }

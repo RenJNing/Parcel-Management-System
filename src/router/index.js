@@ -25,6 +25,9 @@ export default new Router({
       }, {
         path: '/Home/modifypassword',
         component: resolve => require(['../components/Modifypassword.vue'], resolve)
+      },{
+        path: '/Home/community',
+        component: resolve => require(['../components/Community.vue'], resolve)
       }]
     }
   ]

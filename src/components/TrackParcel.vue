@@ -111,6 +111,9 @@ export default{
             .then(function (response) {
               if (response.data.code === 200) {
                 // TODO:查询后返回数据
+                response.data.obj.forEach(function (element) {
+                  self.tableData.push({parcel_id: element.parcel_id, sendername: element.sendername, receivename: element.receivename, receiveaddress: element.receiveaddress, parcel_status: element.parcel_status})
+                })
               } else {
                 self.codeParsing(response.data.code)
               }
