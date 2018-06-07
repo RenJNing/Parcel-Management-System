@@ -60,6 +60,22 @@ export default{
     }
   },
   methods: {
+    codeParsing (code) {
+      var msg = (hint) => {
+        Message({
+          message: hint,
+          type: 'error',
+          center: true
+        })
+      }
+      switch (code) {
+        case -1:
+          msg('未知错误，请上报管理员')
+          break
+        default:
+          break
+      }
+    },
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
@@ -84,6 +100,8 @@ export default{
                   center: true
                 })
                 self.resetForm('OrderForm')
+              } else {
+                self.codeParsing(response.data.code)
               }
             })
             .catch(function (error) {

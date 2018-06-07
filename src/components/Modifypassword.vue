@@ -51,6 +51,25 @@ export default {
     }
   },
   methods: {
+    codeParsing (code) {
+      var msg = (hint) => {
+        Message({
+          message: hint,
+          type: 'error',
+          center: true
+        })
+      }
+      switch (code) {
+        case -1:
+          msg('未知错误，请上报管理员')
+          break
+        case 301:
+          msg('密码错误')
+          break
+        default:
+          break
+      }
+    },
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
@@ -60,8 +79,7 @@ export default {
         if (validate) {
           this.$axios.post('user/modifypassword', {
             oldpassword: this.passwordform.oldpassword,
-            newpassword: this.passwordform.newpassword,
-            confirmpassword: this.passwordform.confirmpassword
+            newpassword: this.passwordform.newpassword
           })
             .then(function (response) {
               if (response.data.code === 200) {
@@ -72,7 +90,7 @@ export default {
                 })
                 self.resetForm('passwordform')
               } else {
-                // TODO:
+                self.codeParsing(response.data.code)
               }
             })
             .catch(function (error) {

@@ -2,19 +2,19 @@
   <div id="track">
         <el-tabs type="border-card">
             <el-tab-pane label="按照单号">
-                <el-form :model='trackForm1' :rules='idrules' ref='idForm' label-width='0px'>
+                <el-form :model='trackForm1' :rules='idrules' ref='trackForm1' label-width='0px'>
                     <el-form-item prop='parcel_id'>
                         <el-input v-model='trackForm1.parcel_id' placeholder='请输入快递单号'></el-input>
                     </el-form-item>
-                    <el-button type='primary' @click="idsubmit('idForm')">查询</el-button>
+                    <el-button type='primary' @click="idsubmit('trackForm1')">查询</el-button>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="按照手机号">
-                <el-form :model='trackForm2' :rules='phonerules' ref='phoneForm' label-width='0px'>
+                <el-form :model='trackForm2' :rules='phonerules' ref='trackForm2' label-width='0px'>
                     <el-form-item  prop='receivephone'>
                         <el-input v-model='trackForm2.receivephone' placeholder='请输入收件人手机号码'></el-input>
                     </el-form-item>
-                    <el-button type='primary' @click="phonesubmit('phoneForm')">查询</el-button>
+                    <el-button type='primary' @click="phonesubmit('trackForm2')">查询</el-button>
                 </el-form>
             </el-tab-pane>
         </el-tabs>
@@ -50,16 +50,35 @@ export default{
     }
   },
   methods: {
+    codeParsing (code) {
+      var msg = (hint) => {
+        Message({
+          message: hint,
+          type: 'error',
+          center: true
+        })
+      }
+      switch (code) {
+        case 302:
+          msg('订单号不存在')
+          break
+        default:
+          break
+      }
+    },
     idsubmit (Formname) {
+      this.tableData = []
+      const self = this
       this.$refs[Formname].validate((validate) => {
         if (validate) {
-          this.$axios.post('user/trackparcel', {
-            parcel_id: this.idForm.parcel_id
+          this.$axios.post('user/trackparcel1', {
+            parcel_id: this.trackForm1.parcel_id
           })
             .then(function (response) {
               if (response.data.code === 200) {
-                // TODO:查询后返回数据
-                // this.tableData.push({parcel_id:1,sendername:2,receivename:3,receiveaddress:4,parcel_status:5})
+                self.tableData.push({parcel_id: response.data.obj.parcel_id, sendername: response.data.obj.sendername, receivename: response.data.obj.receivename, receiveaddress: response.data.obj.receiveaddress, parcel_status: response.data.obj.parcel_status})
+              } else {
+                self.codeParsing(response.data.code)
               }
             })
             .catch(function (error) {
@@ -82,14 +101,18 @@ export default{
       )
     },
     phonesubmit (Formname) {
+      this.tableData = []
+      const self = this
       this.$refs[Formname].validate((validate) => {
         if (validate) {
-          this.$axios.post('user/trackparcel', {
-            receivephone: this.phoneForm.receivephone
+          this.$axios.post('user/trackparcel2', {
+            receivephone: this.trackForm2.receivephone
           })
             .then(function (response) {
               if (response.data.code === 200) {
                 // TODO:查询后返回数据
+              } else {
+                self.codeParsing(response.data.code)
               }
             })
             .catch(function (error) {

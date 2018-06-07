@@ -97,28 +97,29 @@ export default {
   },
   methods: {
     codeParsing (code) {
-      var msg = (Message) => {
+      var msg = (hint) => {
         Message({
-          message: Message,
+          message: hint,
           type: 'error',
           center: true
         })
       }
       switch (code) {
         case -1:
-          msg('系统错误', '未知错误，请上报管理员')
+          msg('未知错误，请上报管理员')
           break
-        case 444:
+        case 303:
           msg('邮箱已占用，请更改邮箱')
           break
-        case 445:
-          msg('昵称已占用，请更改昵称')
+        case 300:
+          msg('邮箱或密码错误')
           break
         default:
           break
       }
     },
     login: function (formName) {
+      const self = this
       this.$refs[formName].validate((validate) => {
         if (validate) {
           this.$axios.post('user/login', {
@@ -127,9 +128,10 @@ export default {
           })
             .then(function (response) {
               if (response.data.code === 200) {
+                console.log(response.data.code)
                 localStorage.setItem('ms_email', response.data.email)
                 localStorage.setItem('ms_nickname', response.data.nickname)
-                this.$router.push({path: '/Home'})
+                self.$router.push({path: '/Home'})
               } else {
                 self.codeParsing(response.data.code)
               }
@@ -171,10 +173,10 @@ export default {
                   center: true
                 })
                 self.activePane = 'login'
-              } else {
-                self.codeParsing(response.data.code)
                 self.LoginForm.email = this.RegisterForm.email
                 self.LoginForm.password = this.RegisterForm.password
+              } else {
+                self.codeParsing(response.data.code)
               }
             })
             .catch((error) => {
