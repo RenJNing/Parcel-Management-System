@@ -68,7 +68,7 @@ export default {
           this.$axios.post('user/newtopic', {
             title: this.topic.title,
             content: this.topic.content,
-            nickname: localStorage.getItem('ms_email'),
+            nickname: localStorage.getItem('ms_nickname'),
             createtime: self.getNowFormatDate(),
             leasttime: self.getNowFormatDate()
           })

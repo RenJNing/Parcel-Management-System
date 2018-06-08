@@ -2,7 +2,7 @@
   <div>
     <el-form label-width="80px" :rules='rules' ref='passwordform' :model="passwordform">
       <el-form-item type='password' prop='oldpassword' label="旧密码">
-        <el-input v-model="passwordform.oldpassword"></el-input>
+        <el-input type='password' v-model="passwordform.oldpassword"></el-input>
       </el-form-item>
       <el-form-item prop='newpassword' label="新密码">
         <el-input type='password' v-model="passwordform.newpassword"></el-input>

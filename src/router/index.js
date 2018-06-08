@@ -28,7 +28,15 @@ export default new Router({
       }, {
         path: '/Home/community',
         component: resolve => require(['../components/Community.vue'], resolve)
+        // children: [{
+        //   path: '/Home/community/topic',
+        //   component: resolve => require(['../components/topic.vue'], resolve)
+        // }]
       }, {
+        path: '/Home/community/topic',
+        component: resolve => require(['../components/Topic.vue'], resolve)
+      },
+      {
         path: '/Home/newtopic',
         component: resolve => require(['../components/Newtopic.vue'], resolve)
       }]
