@@ -129,8 +129,7 @@ export default {
             .then(function (response) {
               if (response.data.code === 200) {
                 console.log(response.data.code)
-                localStorage.setItem('ms_email', response.data.email)
-                localStorage.setItem('ms_nickname', response.data.nickname)
+                localStorage.setItem('ms_email', self.LoginForm.email)
                 self.$router.push({path: '/Home'})
               } else {
                 self.codeParsing(response.data.code)

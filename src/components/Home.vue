@@ -45,8 +45,9 @@ export default {
       if (key === '2') { this.$router.push('/Home/trackparcel') };
       if (key === '3') { this.$router.push('/Home/sendparcel') };
       if (key === '5-1') { this.$router.push('/Home/community') };
+      if (key === '5-2') { this.$router.push('/Home/newtopic') };
     },
-    handleCommand(command) {
+    handleCommand (command) {
       if (command === 'a') { this.$router.push('/Home/modifypassword') }
       // if (command === 'b') { this.$router.push('/Home/trackparcel') };
     }
