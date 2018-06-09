@@ -90,7 +90,8 @@ export default{
             receivename: this.OrderForm.receivename,
             receivephone: this.OrderForm.receivephone,
             receiveaddress: this.OrderForm.receiveaddress,
-            date: this.OrderForm.date
+            date: this.OrderForm.date,
+            useremail: sessionStorage.getItem('ms_email')
           })
             .then(function (response) {
               if (response.data.code === 200) {

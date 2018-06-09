@@ -18,13 +18,13 @@
                 </el-form>
             </el-tab-pane>
         </el-tabs>
-<el-table :data="tableData" stripe style="width: 100%">
-<el-table-column prop="parcel_id" label="订单号" width="180"></el-table-column>
-<el-table-column prop="sendername" label="寄件人" width="180"></el-table-column>
-  <el-table-column prop="receivename" label="收件人" width="180"></el-table-column>
-<el-table-column prop="receiveaddress" label="收件地址" width="180"></el-table-column>
-  <el-table-column prop="parcel_status" label="快递状态"></el-table-column>
-</el-table>
+    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table-column prop="parcel_id" label="订单号" width="180"></el-table-column>
+    <el-table-column prop="sendername" label="寄件人" width="180"></el-table-column>
+    <el-table-column prop="receivename" label="收件人" width="180"></el-table-column>
+    <el-table-column prop="receiveaddress" label="收件地址" width="180"></el-table-column>
+    <el-table-column prop="parcel_status" label="快递状态"></el-table-column>
+    </el-table>
   </div>
 </template>
 

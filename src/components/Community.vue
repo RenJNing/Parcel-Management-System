@@ -23,6 +23,7 @@ export default {
   methods: {
     gotoTopic (topic) {
       sessionStorage.setItem('topic', JSON.stringify(topic))
+      console.log('11111111111')
       this.$router.push({path: '/Home/community/topic'})
     }
   },

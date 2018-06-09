@@ -126,6 +126,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log('00000000000')
     const self = this
     var url = 'user/getcomment/' + JSON.parse(sessionStorage.getItem('topic')).topic_id
     this.$axios.get(url)
